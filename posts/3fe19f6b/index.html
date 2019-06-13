@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>docker命令选项 | Chc</title><meta name="description" content="docker命令选项"><meta name="keywords" content="命令"><meta name="author" content="Chc"><meta name="copyright" content="Chc"><meta name="format-detection" content="telephone=no"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="canonical" href="https://blog.caihc.site/posts/3fe19f6b/"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="docker命令选项"><meta name="twitter:description" content="docker命令选项"><meta name="twitter:image" content="http://qiniu.caihc.site/blog/2.png"><meta property="og:type" content="article"><meta property="og:title" content="docker命令选项"><meta property="og:url" content="https://blog.caihc.site/posts/3fe19f6b/"><meta property="og:site_name" content="Chc"><meta property="og:description" content="docker命令选项"><meta property="og:image" content="http://qiniu.caihc.site/blog/2.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="prev" title="JVM性能监控" href="https://blog.caihc.site/posts/31cced81/"><link rel="next" title="Docker安装教程" href="https://blog.caihc.site/posts/82496b1a/"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#启动命令"><span class="toc-number">1.</span> <span class="toc-text">启动命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#组合命令"><span class="toc-number">2.</span> <span class="toc-text">组合命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Image"><span class="toc-number">2.1.</span> <span class="toc-text">1. Image</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-volume"><span class="toc-number">2.2.</span> <span class="toc-text">2. volume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-network"><span class="toc-number">2.3.</span> <span class="toc-text">3. network</span></a></li></ol></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://qiniu.caihc.site/blog/2.png)"><div id="page-header"><span class="pull-left"> <a class="blog_title" id="site-name" href="/">Chc</a></span><div class="open toggle-menu pull-right"><div class="menu-icon-first"></div><div class="menu-icon-second"></div><div class="menu-icon-third"></div></div><span class="pull-right menus"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a><script>document.body.addEventListener('touchstart', function(){ });</script></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title"><div class="posttitle">docker命令选项</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-06-13<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2019-06-13</time><span class="post-meta__separator mobile_hidden">|</span><span class="mobile_hidden"><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Docker/">Docker</a></span></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h1><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>–log-opt max-size=[0-9+][k|m|g]</td>
+<td>文件的大小<br><code>--log-opt max-size=10m</code></td>
+</tr>
+<tr>
+<td>–log-opt max-file=[0-9+]</td>
+<td>文件数量<br><code>--log-opt max-file=3</code></td>
+</tr>
+<tr>
+<td>–add-host</td>
+<td>指定往/etc/hosts添加的host<br><code>--add-host mysql:192.168.10.32</code></td>
+</tr>
+<tr>
+<td>–restart=[no|on-failure|always|unless-stopped|]</td>
+<td><code>no</code>:默认策略，在容器退出时不重启容器<br><code>on-failure</code>:在容器非正常退出时（退出状态非0），才会重启容器<br> <code>on-failure:3</code>:在容器非正常退出时重启容器，最多重启3次<br><code>always</code>:在容器退出时总是重启容器<br><code>unless-stopped</code>:在容器退出时总是重启容器，但是不考虑在Docker守护进程启动时就已经停止了的容器</td>
+</tr>
+</tbody></table>
+<h1 id="组合命令"><a href="#组合命令" class="headerlink" title="组合命令"></a>组合命令</h1><h2 id="1-Image"><a href="#1-Image" class="headerlink" title="1. Image"></a>1. Image</h2><ul>
+<li><p>删除全部镜像记录</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm $(docker ps -aq)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除退出的镜像记录</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm $(docker ps -f &quot;status=exited&quot; -q)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>批量删除指定的镜像</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi -f $(docker images | grep dgemc.asuscomm.com:9293/teamfort_vote/teamfort_vote | awk &apos;&#123;print $3&#125;&apos;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>镜像内容拷贝<br>  先启动</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name nginx  nginx</span><br></pre></td></tr></table></figure>
+
+<p>  然后拷贝配置文件</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp nginx:/etc/nginx/ /etc/nginx/</span><br></pre></td></tr></table></figure>
+
+<p>  然后删除</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm -fv nginx</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h2 id="2-volume"><a href="#2-volume" class="headerlink" title="2. volume"></a>2. volume</h2><ul>
+<li>删除所有（本地）没有被容器使用的volume  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker volume prune</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="3-network"><a href="#3-network" class="headerlink" title="3. network"></a>3. network</h2><ul>
+<li>删除所有孤立的网络。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network prune</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chc</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.caihc.site/posts/3fe19f6b/">https://blog.caihc.site/posts/3fe19f6b/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.caihc.site">Chc</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/命令/">命令    </a></div><div class="post_share"></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull-left"><a href="/posts/31cced81/"><img class="prev_cover lozad" data-src="http://qiniu.caihc.site/blog/jvm.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>JVM性能监控</span></div></a></div><div class="next-post pull-right"><a href="/posts/82496b1a/"><img class="next_cover lozad" data-src="http://qiniu.caihc.site/blog/1.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>Docker安装教程</span></div></a></div></nav><div class="relatedPosts"></div></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2019 By Chc</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><section class="rightside" id="rightside"><i class="fa fa-book" id="readmode"> </i><i class="fa fa-plus" id="font_plus"></i><i class="fa fa-minus" id="font_minus"></i><i class="fa fa-comments-o" id="to_comment"> </i><a class="translate_chn_to_cht" id="translateLink"></a><i class="fa fa-moon-o nightshift" id="nightshift"></i></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/baidupush.js"></script><script async src="/js/search/local-search.js"></script><script src="/js/tw_cn.js"></script><script>$(document).ready(function() { 
+  initializeChineseConversion();
+});
+function simplifyTextInPage(simplified) {
+  if (simplified) {
+    $(document.body).t2s();
+    $('#translateLink').addClass('simplified');
+    $('#translateLink').text('繁');
+  } else {
+    $(document.body).s2t();
+    $('#translateLink').removeClass('simplified');
+    $('#translateLink').text('簡');
+  }
+}
+function initializeChineseConversion() {
+  var simplified = +Cookies.get('simplified');
+  // ?lang=zh-Hans, ?lang=zh-Hant
+  var scriptCode = /[?&;]lang=[^&;]*(Han[st])/i.exec(window.location.search);
+  if (scriptCode) {
+    simplified = +(scriptCode[1].match(/Hans/i) != null);
+    Cookies.set('simplified', simplified, {expires: 7, path: '/'});
+  }
+  simplifyTextInPage(simplified);
+  $('#translateLink').click(function() {
+    simplified = +!simplified;
+    Cookies.set('simplified', simplified, {expires: 7, path: '/'});
+    simplifyTextInPage(simplified);
+    $(this).blur();
+  });
+}
+</script><script src="/js/nightshift.js"></script><script id="ribbon" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/js/piao.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@1.2.2/instantpage.min.js" type="module"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
