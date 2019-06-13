@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Docker安装教程</title>
+      <link href="/posts/82496b1a/"/>
+      <url>/posts/82496b1a/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><h3 id="一-教程来源"><a href="#一-教程来源" class="headerlink" title="一. 教程来源"></a>一. 教程来源</h3><p><a href="http://get.daocloud.io" target="_blank" rel="noopener">http://get.daocloud.io</a></p><h3 id="二-Linux安装Docker"><a href="#二-Linux安装Docker" class="headerlink" title="二. Linux安装Docker"></a>二. Linux安装Docker</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL https://get.daocloud.io/docker | sh</span><br></pre></td></tr></table></figure><h3 id="三-Linux安装Docker-Compose"><a href="#三-Linux安装Docker-Compose" class="headerlink" title="三. Linux安装Docker Compose"></a>三. Linux安装Docker Compose</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://get.daocloud.io/docker/compose/releases/download/1.23.2/docker-compose-`uname -s`-`uname -m` &gt; /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br></pre></td></tr></table></figure><h3 id="四-安装出现的问题解决"><a href="#四-安装出现的问题解决" class="headerlink" title="四. 安装出现的问题解决"></a>四. 安装出现的问题解决</h3><h4 id="1-Delta-RPMs-disabled-because-usr-bin-applydeltarpm-not-installed"><a href="#1-Delta-RPMs-disabled-because-usr-bin-applydeltarpm-not-installed" class="headerlink" title="1. Delta RPMs disabled because /usr/bin/applydeltarpm not installed"></a>1. <code>Delta RPMs disabled because /usr/bin/applydeltarpm not installed</code></h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum provides <span class="string">'*/applydeltarpm'</span>  </span><br><span class="line">yum install deltarpm</span><br></pre></td></tr></table></figure><h3 id="五-Docker-开机自启动"><a href="#五-Docker-开机自启动" class="headerlink" title="五. Docker 开机自启动"></a>五. Docker 开机自启动</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 部署 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Docker配置问题</title>
       <link href="/posts/c282aa2f/"/>
       <url>/posts/c282aa2f/</url>
