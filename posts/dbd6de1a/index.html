@@ -56,12 +56,63 @@
 <li>进入进行配置就可以了</li>
 </ol>
 <h1 id="四-自己的frp服务端"><a href="#四-自己的frp服务端" class="headerlink" title="四. 自己的frp服务端"></a>四. 自己的frp服务端</h1><h2 id="1-frps-chc-cn"><a href="#1-frps-chc-cn" class="headerlink" title="1. frps.chc.cn"></a>1. frps.chc.cn</h2><ul>
-<li><p>ip : 127.0.0.1</p>
-<p>Docker内定义 | 内容 | 描述</p>
-</li>
+<li>ip : 127.0.0.1</li>
 </ul>
-<p>—|—|—<br>bind_port |    30000(TCP) |    frps服务端口<br>kcp_bind_port |    30000(UDP) |    KCP加速端口<br>bind_udp_port |    30001(UDP) |    udp端口帮助udp洞洞穿nat<br>dashboard_port | 30002(TCP) |    Frps控制台端口<br>vhost_http_port | 30000(TCP) |    http穿透的端口。<br>vhost_https_port |    30000(TCP) |    https穿透服务的端口<br>token | teamfort | 连接认证码<br>dashboard_user | teamfort | frps控制台用户名<br>dashboard_pwd | teamfort | frps控制台密码</p>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chc</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.caihc.site/posts/dbd6de1a/">https://blog.caihc.site/posts/dbd6de1a/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.caihc.site">Chc</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/部署/">部署    </a></div><div class="post_share"></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull-left"><a href="/posts/e2c8b11c/"><img class="prev_cover lozad" data-src="http://qiniu.caihc.site/blog/Socks5.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>Socks5搭建</span></div></a></div><div class="next-post pull-right"><a href="/posts/774b3897/"><img class="next_cover lozad" data-src="http://qiniu.caihc.site/blog/spring1.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>SpringCloud使用总结</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headling"><i class="fa fa-thumbs-up" aria-hidden="true"></i><span>&nbsp;相關文章</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/posts/82496b1a/"><img class="relatedPosts_cover lozad" data-src="http://qiniu.caihc.site/blog/1.jpg"><div class="relatedPosts_title">Docker安装教程</div></a></div><div class="relatedPosts_item"><a href="/posts/27bcef6f/"><img class="relatedPosts_cover lozad" data-src="http://qiniu.caihc.site/blog/9996165116c96bf7b48628a96d5aabf7.png"><div class="relatedPosts_title">Harbor私有仓库搭建</div></a></div><div class="relatedPosts_item"><a href="/posts/e2c8b11c/"><img class="relatedPosts_cover lozad" data-src="http://qiniu.caihc.site/blog/Socks5.jpg"><div class="relatedPosts_title">Socks5搭建</div></a></div></div><div class="clear_both"></div></div></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2019 By Chc</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><section class="rightside" id="rightside"><i class="fa fa-book" id="readmode"> </i><i class="fa fa-plus" id="font_plus"></i><i class="fa fa-minus" id="font_minus"></i><i class="fa fa-comments-o" id="to_comment"> </i><a class="translate_chn_to_cht" id="translateLink"></a><i class="fa fa-moon-o nightshift" id="nightshift"></i></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/baidupush.js"></script><script async src="/js/search/local-search.js"></script><script src="/js/tw_cn.js"></script><script>$(document).ready(function() { 
+<table>
+<thead>
+<tr>
+<th>Docker内定义</th>
+<th>内容</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bind_port</td>
+<td>30000(TCP)</td>
+<td>frps服务端口</td>
+</tr>
+<tr>
+<td>kcp_bind_port</td>
+<td>30000(UDP)</td>
+<td>KCP加速端口</td>
+</tr>
+<tr>
+<td>bind_udp_port</td>
+<td>30001(UDP)</td>
+<td>udp端口帮助udp洞洞穿nat</td>
+</tr>
+<tr>
+<td>dashboard_port</td>
+<td>30002(TCP)</td>
+<td>Frps控制台端口</td>
+</tr>
+<tr>
+<td>vhost_http_port</td>
+<td>30000(TCP)</td>
+<td>http穿透的端口。</td>
+</tr>
+<tr>
+<td>vhost_https_port</td>
+<td>30000(TCP)</td>
+<td>https穿透服务的端口</td>
+</tr>
+<tr>
+<td>token</td>
+<td>teamfort</td>
+<td>连接认证码</td>
+</tr>
+<tr>
+<td>dashboard_user</td>
+<td>teamfort</td>
+<td>frps控制台用户名</td>
+</tr>
+<tr>
+<td>dashboard_pwd</td>
+<td>teamfort</td>
+<td>frps控制台密码</td>
+</tr>
+</tbody></table>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chc</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.caihc.site/posts/dbd6de1a/">https://blog.caihc.site/posts/dbd6de1a/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.caihc.site">Chc</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/部署/">部署    </a></div><div class="post_share"></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull-left"><a href="/posts/e2c8b11c/"><img class="prev_cover lozad" data-src="http://qiniu.caihc.site/blog/Socks5.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>Socks5搭建</span></div></a></div><div class="next-post pull-right"><a href="/posts/774b3897/"><img class="next_cover lozad" data-src="http://qiniu.caihc.site/blog/spring1.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>SpringCloud使用总结</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headling"><i class="fa fa-thumbs-up" aria-hidden="true"></i><span>&nbsp;相關文章</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/posts/27bcef6f/"><img class="relatedPosts_cover lozad" data-src="http://qiniu.caihc.site/blog/9996165116c96bf7b48628a96d5aabf7.png"><div class="relatedPosts_title">Harbor私有仓库搭建</div></a></div><div class="relatedPosts_item"><a href="/posts/82496b1a/"><img class="relatedPosts_cover lozad" data-src="http://qiniu.caihc.site/blog/1.jpg"><div class="relatedPosts_title">Docker安装教程</div></a></div><div class="relatedPosts_item"><a href="/posts/e2c8b11c/"><img class="relatedPosts_cover lozad" data-src="http://qiniu.caihc.site/blog/Socks5.jpg"><div class="relatedPosts_title">Socks5搭建</div></a></div></div><div class="clear_both"></div></div></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2019 By Chc</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><section class="rightside" id="rightside"><i class="fa fa-book" id="readmode"> </i><i class="fa fa-plus" id="font_plus"></i><i class="fa fa-minus" id="font_minus"></i><i class="fa fa-comments-o" id="to_comment"> </i><a class="translate_chn_to_cht" id="translateLink"></a><i class="fa fa-moon-o nightshift" id="nightshift"></i></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/baidupush.js"></script><script async src="/js/search/local-search.js"></script><script src="/js/tw_cn.js"></script><script>$(document).ready(function() { 
   initializeChineseConversion();
 });
 function simplifyTextInPage(simplified) {
