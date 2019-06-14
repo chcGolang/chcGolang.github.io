@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Socks5搭建</title>
+      <link href="/posts/e2c8b11c/"/>
+      <url>/posts/e2c8b11c/</url>
+      
+        <content type="html"><![CDATA[<h6 id="Socks5下载"><a href="#Socks5下载" class="headerlink" title="Socks5下载"></a>Socks5下载</h6><p>下载地址：<a href="http://sourceforge.net/projects/ss5/files/" target="_blank" rel="noopener">http://sourceforge.net/projects/ss5/files/</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#通过yum安装ss5 依赖包：</span><br><span class="line">yum install gcc openldap-devel pam-devel openssl-devel</span><br><span class="line"></span><br><span class="line"># 解压,&quot;ss5-3.8.9-8.tar.gz&quot;是刚才下载的压缩包</span><br><span class="line"># -v过程显示文件 -z解压/压缩gzip -x解压操作 -f 后面加要操作的文件</span><br><span class="line">tar -vzx -f ss5-3.8.9-8.tar.gz</span><br><span class="line"></span><br><span class="line">cd ss5-3.8.9/</span><br><span class="line"></span><br><span class="line"># configure是一个shell脚本</span><br><span class="line"># 主要的作用是对即将安装的程序进行配置，</span><br><span class="line"># 检查当前的环境是否满足要安装程序的依赖关系.</span><br><span class="line"># 如果系统环境合适，就会生成makefile，否则会报错。</span><br><span class="line">./configure</span><br><span class="line"></span><br><span class="line"># make是一个命令工具</span><br><span class="line"># 解释 Makefile 中的规则。</span><br><span class="line"># Makefile文件中描述了整个工程所有文件的编译顺序、编译规则。</span><br><span class="line"># 实际上make是执行Makefile中的第一条命令</span><br><span class="line">make</span><br><span class="line"></span><br><span class="line">#接下来开始安装刚刚编译的程序：</span><br><span class="line">#执行Makefile中的install</span><br><span class="line">#这些都可以在Makefile文件中看到</span><br><span class="line">#可以使用vim Makefile查看文件</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line">#启动脚本加执行权限</span><br><span class="line">chmod +x /etc/init.d/ss5</span><br><span class="line">设置监听端口</span><br><span class="line"></span><br><span class="line">vi /etc/sysconfig/ss5  </span><br><span class="line"># Add startup option here  </span><br><span class="line">SS5_OPTS=&quot; -u root -b 0.0.0.0:2233&quot;</span><br><span class="line"></span><br><span class="line"># 启动服务</span><br><span class="line">service start ss5</span><br><span class="line"></span><br><span class="line">#使用用户名密码登录，修改配置文件中的两行</span><br><span class="line">vi /etc/opt/ss5/ss5.conf  </span><br><span class="line">auth 0.0.0.0/0 - u  </span><br><span class="line">permit u 0.0.0.0/0 - 0.0.0.0/0 - - - - -</span><br><span class="line"></span><br><span class="line">#用户名和密码，一个用户和密码一行，用空格间隔</span><br><span class="line">vi /etc/opt/ss5/ss5.passwd  </span><br><span class="line">user1 123</span><br><span class="line">user2 123</span><br><span class="line"></span><br><span class="line"># 重启服务</span><br><span class="line">service restart ss5</span><br></pre></td></tr></table></figure><p>代理使用工具：Proxifier </p><p>配置: 配置文件-&gt;代理服务器-&gt;添加<br><img src="https://youdaoyun-chc.oss-cn-shenzhen.aliyuncs.com/3.png" alt="image"></p><p>自定义代理规则（微信代理为案例）：配置文件-&gt;代理规则-&gt;添加</p><p><img src="https://youdaoyun-chc.oss-cn-shenzhen.aliyuncs.com/4.png" alt="image"></p><p>如果工具无法代理则:<br><img src="https://youdaoyun-chc.oss-cn-shenzhen.aliyuncs.com/5.png" alt="image"><br>然后重启电脑</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 部署 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Frp内网穿透搭建和使用</title>
       <link href="/posts/dbd6de1a/"/>
       <url>/posts/dbd6de1a/</url>
