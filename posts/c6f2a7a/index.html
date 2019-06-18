@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>RabbitMQ的知识和使用 | Chc</title><meta name="description" content="RabbitMQ的知识和使用"><meta name="keywords" content="RabbitMq"><meta name="author" content="Chc"><meta name="copyright" content="Chc"><meta name="format-detection" content="telephone=no"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="canonical" href="https://blog.caihc.site/posts/c6f2a7a/"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="RabbitMQ的知识和使用"><meta name="twitter:description" content="RabbitMQ的知识和使用"><meta name="twitter:image" content="http://qiniu.caihc.site/rabbit/rabbit.jpg"><meta property="og:type" content="article"><meta property="og:title" content="RabbitMQ的知识和使用"><meta property="og:url" content="https://blog.caihc.site/posts/c6f2a7a/"><meta property="og:site_name" content="Chc"><meta property="og:description" content="RabbitMQ的知识和使用"><meta property="og:image" content="http://qiniu.caihc.site/rabbit/rabbit.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="next" title="分布式事务总结" href="https://blog.caihc.site/posts/a9e99186/"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一-Rabbitmq简介"><span class="toc-number">1.</span> <span class="toc-text">一 Rabbitmq简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-特点"><span class="toc-number">1.1.</span> <span class="toc-text">1. 特点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二-AMQP协议"><span class="toc-number">2.</span> <span class="toc-text">二 AMQP协议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-定义"><span class="toc-number">2.1.</span> <span class="toc-text">1. 定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-核心概念"><span class="toc-number">2.2.</span> <span class="toc-text">2. 核心概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-exchange属性"><span class="toc-number">2.3.</span> <span class="toc-text">3. exchange属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Direct-Exchange"><span class="toc-number">2.3.1.</span> <span class="toc-text">1. Direct Exchange</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Topic-Exchange"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.Topic Exchange</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-fanout-exchange"><span class="toc-number">2.3.3.</span> <span class="toc-text">3. fanout exchange</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Queue"><span class="toc-number">2.4.</span> <span class="toc-text">4. Queue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-VirtualHost"><span class="toc-number">2.5.</span> <span class="toc-text">5. VirtualHost</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三-消息生产与消费"><span class="toc-number">3.</span> <span class="toc-text">三 消息生产与消费</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四-可靠性投递"><span class="toc-number">4.</span> <span class="toc-text">四 可靠性投递</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五-消息确认机制"><span class="toc-number">5.</span> <span class="toc-text">五 消息确认机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Confirm"><span class="toc-number">5.1.</span> <span class="toc-text">1. Confirm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Return消息机制"><span class="toc-number">5.2.</span> <span class="toc-text">2. Return消息机制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六-消费端限流"><span class="toc-number">6.</span> <span class="toc-text">六 消费端限流</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#七-消费端ack与重回队列"><span class="toc-number">7.</span> <span class="toc-text">七 消费端ack与重回队列</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#八-TTL队列-消息"><span class="toc-number">8.</span> <span class="toc-text">八 TTL队列/消息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#九-死信队列-DLX-Dead-Letter-Exchange"><span class="toc-number">9.</span> <span class="toc-text">九 死信队列(DLX,Dead-Letter-Exchange)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十-Spring-Cloud-Stream-整合"><span class="toc-number">10.</span> <span class="toc-text">十 Spring Cloud Stream 整合</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#消息使用"><span class="toc-number">11.</span> <span class="toc-text">消息使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-事务机制"><span class="toc-number">11.1.</span> <span class="toc-text">1. 事务机制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#制定扩展"><span class="toc-number">12.</span> <span class="toc-text">制定扩展</span></a></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://qiniu.caihc.site/rabbit/rabbit.jpg)"><div id="page-header"><span class="pull-left"> <a class="blog_title" id="site-name" href="/">Chc</a></span><div class="open toggle-menu pull-right"><div class="menu-icon-first"></div><div class="menu-icon-second"></div><div class="menu-icon-third"></div></div><span class="pull-right menus"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a><script>document.body.addEventListener('touchstart', function(){ });</script></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title"><div class="posttitle">RabbitMQ的知识和使用</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-06-18<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2019-06-18</time><span class="post-meta__separator mobile_hidden">|</span><span class="mobile_hidden"><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/消息队列/">消息队列</a></span></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="一-Rabbitmq简介"><a href="#一-Rabbitmq简介" class="headerlink" title="一 Rabbitmq简介"></a>一 Rabbitmq简介</h1><p>*rabbitmq是一个开源的消息代理和队列服务器,用来通过普通协议在完全不同的应用之间共享数据,rabbitmq是使用二郎语言来编写的,并且rabbitmq是基于AMQP协议的.</p>
+<h2 id="1-特点"><a href="#1-特点" class="headerlink" title="1. 特点"></a>1. 特点</h2><ul>
+<li>与springAMQP完美的整合,API丰富</li>
+<li>集群模式丰富,表达式配置,ha模式,镜像队列模式</li>
+<li>保证数据不丢失的前提做到高可靠性,可用性</li>
+</ul>
+<h1 id="二-AMQP协议"><a href="#二-AMQP协议" class="headerlink" title="二 AMQP协议"></a>二 AMQP协议</h1><h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h2><p>是具有现代特征的二进制协议.是一个提供统一消息服务的应用层标准高级消息队列协议,是应用层协议的一个开放标准,为面向消息的中间件设计.</p>
+<h2 id="2-核心概念"><a href="#2-核心概念" class="headerlink" title="2. 核心概念"></a>2. 核心概念</h2><ul>
+<li>Server:又称Broker,接受客户端的连接,实现AMQP实体服务</li>
+<li>connection:连接,应用程序与broker的网络连接</li>
+<li>Channel:网络信道,几乎所有的操作都在Channel中进行,Channel是进行消息读写的通道.客户端可建立多个Channel,每个Channel代表个会任务.</li>
+<li>message:消息,服务器和应用程序之间传送的数据,由properties和body组成.properties可以对消息进行修饰,比如消息的优先级,延迟等高级特性;body则就是消息体内容.</li>
+<li>virtual host: 虚拟地址,用于进行逻辑隔离,最上层的消息路由.一个virtual host里面可以有若干个exchange和queue, 同一个virtual host里面不能有相同名称的exchange或queue</li>
+<li>exchange:交换机,接收消息,根据路由键转发消息到绑定的队列</li>
+<li>binding:exchange和queue之间的虚拟连接,binding中可以包含routing key</li>
+<li>Routing key: 一个路由规则,虚拟机可用它来确定如何路由一个特定消息</li>
+<li>queue:消息队列,保存消息并将它们转发给消费者</li>
+</ul>
+<h2 id="3-exchange属性"><a href="#3-exchange属性" class="headerlink" title="3. exchange属性"></a>3. exchange属性</h2><ul>
+<li>Name: 交换机名称</li>
+<li>Type:交换机类型direct,topic,fanout,headers</li>
+<li>Durability:是否需要持久化,true为持久化</li>
+<li>Auto Delete:当最后一个绑定到exchange上的队列删除后,自动删除该exchange</li>
+<li>Internal:当前exchange是否用于rabbitmq内部使用,默认false</li>
+<li>Arguments:扩展参数,用于扩展AMQP协议自制定化使用<h3 id="1-Direct-Exchange"><a href="#1-Direct-Exchange" class="headerlink" title="1. Direct Exchange"></a>1. Direct Exchange</h3></li>
+<li>所有发送到Direct Exchange的消息被转发到Routekey中指定queue</li>
+<li>Direct模式可以使用rabbitmq自带的exchange:default exchange, 所有不需要将exchange进行任何绑定操作,消息传递时,routekey必须完全匹配才会被队列接收,否则该消息会被抛弃.</li>
+</ul>
+<h3 id="2-Topic-Exchange"><a href="#2-Topic-Exchange" class="headerlink" title="2.Topic Exchange"></a>2.Topic Exchange</h3><ul>
+<li>所有发送到Topic Exchange的消息被转发到所有关心routekey中指定topic的queue上</li>
+<li>exchange将routekey和某topic进行模糊匹配,此时队列需要绑定一个topic</li>
+<li>可以使用通配符进行模糊匹配</li>
+<li>“#”匹配一个或多个词</li>
+<li>“*”匹配一个词</li>
+<li>例如:”log.#”能够匹配到”log.INF.oa”</li>
+<li>例如:”log.*”能够匹配到”log.conf”</li>
+</ul>
+<h3 id="3-fanout-exchange"><a href="#3-fanout-exchange" class="headerlink" title="3. fanout exchange"></a>3. fanout exchange</h3><ul>
+<li>不处理路由键,只需要简单的将队列绑定到交换机上</li>
+<li>发送到交换机的消息都会被转发到与该交换机绑定的所有队列上</li>
+<li>fanout交换机转发消息是最快的</li>
+</ul>
+<h2 id="4-Queue"><a href="#4-Queue" class="headerlink" title="4. Queue"></a>4. Queue</h2><ul>
+<li>消息队列,实际存储消息数据</li>
+<li>Durability:是否持久化,Durable:是,Transient:否</li>
+<li>Auto delete:如选yes, 代表当最后一个监听被移除之后,该queue会自动被删除</li>
+</ul>
+<h2 id="5-VirtualHost"><a href="#5-VirtualHost" class="headerlink" title="5. VirtualHost"></a>5. VirtualHost</h2><ul>
+<li>虚拟地址,用于进行逻辑隔离,最上层的消息路由</li>
+<li>一个 virtual host 里面可以有若干个exchange和queue</li>
+<li>同一个virtual host里面不能有相同名称的exchange或queue</li>
+</ul>
+<h1 id="三-消息生产与消费"><a href="#三-消息生产与消费" class="headerlink" title="三 消息生产与消费"></a>三 消息生产与消费</h1><ul>
+<li>ConnrctionFactory:获取连接工厂</li>
+<li>Connection:一个连接</li>
+<li>Channel:数据通信信道,可发送和接收消息</li>
+<li>Queue:具体的消息存储队列</li>
+<li>Producer&amp;Consumer 生产和消费者</li>
+</ul>
+<h1 id="四-可靠性投递"><a href="#四-可靠性投递" class="headerlink" title="四 可靠性投递"></a>四 可靠性投递</h1><ul>
+<li><ol>
+<li>消息信息落库,对消息状态进行记录</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>消息的延迟投递,做二次确认,回调检查<br><img src="https://youdaoyun-chc.oss-cn-shenzhen.aliyuncs.com/rabbitmq/%E5%8F%AF%E9%9D%A0%E6%80%A7%E6%8A%95%E9%80%92%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.PNG" alt="方案二"></li>
+</ol>
+</li>
+</ul>
+<h1 id="五-消息确认机制"><a href="#五-消息确认机制" class="headerlink" title="五 消息确认机制"></a>五 消息确认机制</h1><h2 id="1-Confirm"><a href="#1-Confirm" class="headerlink" title="1. Confirm"></a>1. Confirm</h2><ul>
+<li>消息确认,是指生产者投递消息后,如果Broker收到消息,则会给我们生产者一个应答.</li>
+<li>生产者进行接收应答,用来确认这条消息是否正常的发送到Broker,这种方式也是消息的可靠性投递的核心保障</li>
+<li>只能说明投递成功,不能说明消费者接收成功</li>
+</ul>
+<h2 id="2-Return消息机制"><a href="#2-Return消息机制" class="headerlink" title="2. Return消息机制"></a>2. Return消息机制</h2><ul>
+<li>Return Listener用于处理一些不可路由的消息</li>
+<li>如果我们在发送消息的时候,当前的exchange不存在或者指定的路由key路由不到,就需要用到Return Listener</li>
+<li>关键配置项:Mandatory:如果为true,监听器接收到路由不可达的消息,然后进行后续处理,如果为false,那么broker端自动删除该消息</li>
+</ul>
+<h1 id="六-消费端限流"><a href="#六-消费端限流" class="headerlink" title="六 消费端限流"></a>六 消费端限流</h1><ul>
+<li>Rabbitmq提供了一种qos(服务质量保证)功能,即在非自动确认消息的前提下,如果一定数目的消息(通过基于consume或者channel设置qos的值)未被确认前,不进行消费新的消息.</li>
+<li>java 方法:<code>void BasicQos(unit pregetchSize,ushort prefetchCount,bool global);</code><ol>
+<li>prefetchSize:0 (单条消息消费的大小限制,一般设为:0不限制)</li>
+<li>prefetchCount:N (一般设置:1,会告诉rabbitmq不要同时给一个消费者推送多余N个消息,即一旦有N给消息还没有ack,则该consumer将block掉,直到有消息ack)</li>
+<li>global:true/false (是否将上面设置应用于channel,简单点说,就是上面限制是channel级别的还是consumer级别)</li>
+<li>注意:prefetchSize和global这两项,rabbitmq没有实现,prefetchCount在no_ask=false的情况下生效,机在自动应答的情况下这两个值是不生效的.</li>
+</ol>
+</li>
+</ul>
+<h1 id="七-消费端ack与重回队列"><a href="#七-消费端ack与重回队列" class="headerlink" title="七 消费端ack与重回队列"></a>七 消费端ack与重回队列</h1><ul>
+<li>消费端进行消费的时候,如果由于业务异常我们可以进行日志的记录,然后进行补偿</li>
+<li>如果由于服务器宕机等严重问题,那我们就需要手工进行ack保障消费端消费端消费成功</li>
+<li>消费端重回队列是为了对没有处理成功的消息,把消息重新递给broker</li>
+<li>一般我们在实际应用中,都会关闭重回队列,也就是设置为false</li>
+</ul>
+<h1 id="八-TTL队列-消息"><a href="#八-TTL队列-消息" class="headerlink" title="八 TTL队列/消息"></a>八 TTL队列/消息</h1><ul>
+<li>在消息发送时可以进行指定消息的过期时间</li>
+<li>队列的过期时间,从消息进入队列开始计算,只要超过了队列的超时时间配置,那么消息会自动的清除</li>
+</ul>
+<h1 id="九-死信队列-DLX-Dead-Letter-Exchange"><a href="#九-死信队列-DLX-Dead-Letter-Exchange" class="headerlink" title="九 死信队列(DLX,Dead-Letter-Exchange)"></a>九 死信队列(DLX,Dead-Letter-Exchange)</h1><ol>
+<li><p>特点</p>
+<ul>
+<li>利用DLX,当消息在一个队列中变成死信(dead message)之后,它能被重新publish到另一个exchange,这个exchange就是DLX</li>
+<li>DLX也是一个正常的exchange,和一般的exchange没有区别,他能在任何的队列上被指定,实际上就是设置某个队列的属性.</li>
+<li>当这个队列中有死信时,rabbitmq就会自动的将这个消息重新发布到设置的exchange上去,进而被路由到另一个队列.</li>
+<li>可以监听这个队列中消息做相应的处理</li>
+</ul>
+</li>
+<li><p>消息变成死信的情况</p>
+<ul>
+<li>消息被拒绝(basic.reject/basic.nack)并且requeue=false</li>
+<li>消息TTL过期</li>
+<li>队列达到最大长度</li>
+</ul>
+</li>
+<li><p>死信队列设置:</p>
+<ul>
+<li>进行正常声明交换机,队列,绑定,只不过我们需要在队列加上一个参数即可:arguments.put(“x-dead-letter-exchange”,”dlx.exchange”);</li>
+</ul>
+</li>
+</ol>
+<h1 id="十-Spring-Cloud-Stream-整合"><a href="#十-Spring-Cloud-Stream-整合" class="headerlink" title="十 Spring Cloud Stream 整合"></a>十 Spring Cloud Stream 整合</h1><ul>
+<li>barista接口:定义通道类型和通道名称,通道名称是作为配置用,通道类型则决定了app会使用者一通道进行发送消息还是从中接收消息</li>
+<li>@Ouput:输出注解,用于定义发送消息接口</li>
+<li>@Input:输入注解,用于定义消息的消费者接口</li>
+<li>缺点:不能实现可靠性的投递,会存在少量消息丢失的问题</li>
+</ul>
+<h1 id="消息使用"><a href="#消息使用" class="headerlink" title="消息使用"></a>消息使用</h1><h2 id="1-事务机制"><a href="#1-事务机制" class="headerlink" title="1. 事务机制"></a>1. 事务机制</h2><ol>
+<li><p>基本使用</p>
+<ul>
+<li>RabbitMQ中与事务机制有关的方法有三个：txSelect(), txCommit()以及txRollback()</li>
+<li>txSelect用于将当前channel设置成transaction模式</li>
+<li>txCommit用于提交事务</li>
+<li>txRollback用于回滚事务</li>
+<li>在通过txSelect开启事务之后，我们便可以发布消息给broker代理服务器了，如果txCommit提交成功了，则消息一定到达了broker了，如果在txCommit执行之前broker异常崩溃或者由于其他原因抛出异常，这个时候我们便可以捕获异常通过txRollback回滚事务了</li>
+<li>使用说明地址:<code>https://www.jianshu.com/p/801456df3930</code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">channel.txSelect(); </span><br><span class="line">channel.basicPublish(<span class="string">""</span>, QUEUE_NAME, <span class="keyword">null</span>, msg.getBytes()); </span><br><span class="line">channel.txCommit();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>缺点和解决方案</p>
+</li>
+</ol>
+<ul>
+<li>在并发量大的情况在rabbitmq事务会非常的占用资源</li>
+<li>解决方法:<ol>
+<li>采用类似可靠性投递的机制,进行补偿投递</li>
+<li>操作的数据源要统一,也就是业务操作db1和消息投递的db2使用同一个数据源</li>
+</ol>
+</li>
+</ul>
+<h1 id="制定扩展"><a href="#制定扩展" class="headerlink" title="制定扩展"></a>制定扩展</h1><ul>
+<li>插件搜索下载地址:<code>http://www.rabbitmq.com/community-plugins.html</code></li>
+</ul>
+<ol>
+<li>延迟队列插件</li>
+</ol>
+<ul>
+<li><p>延迟插件名称:rabbitmq_delayed_message_exchange</p>
+</li>
+<li><p>将<code>***.ez</code>放入<code>{rabbitmq_server}/plugins</code>目录下</p>
+</li>
+<li><p>重命名插件名称<code>rabbitmq_delayed_message_exchange-0.0.1.ez</code></p>
+</li>
+<li><p>启动插件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_delayed_message_exchange</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ps: 关闭指定插件的命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins disable rabbitmq_delayed_message_exchange</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chc</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.caihc.site/posts/c6f2a7a/">https://blog.caihc.site/posts/c6f2a7a/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.caihc.site">Chc</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/RabbitMq/">RabbitMq    </a></div><div class="post_share"></div></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/posts/a9e99186/"><img class="next_cover lozad" data-src="http://qiniu.caihc.site/blog/fenbushishiwu.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>分布式事务总结</span></div></a></div></nav><div class="relatedPosts"></div></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2019 By Chc</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><section class="rightside" id="rightside"><i class="fa fa-book" id="readmode"> </i><i class="fa fa-plus" id="font_plus"></i><i class="fa fa-minus" id="font_minus"></i><i class="fa fa-comments-o" id="to_comment"> </i><a class="translate_chn_to_cht" id="translateLink"></a><i class="fa fa-moon-o nightshift" id="nightshift"></i></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/baidupush.js"></script><script async src="/js/search/local-search.js"></script><script src="/js/tw_cn.js"></script><script>$(document).ready(function() { 
+  initializeChineseConversion();
+});
+function simplifyTextInPage(simplified) {
+  if (simplified) {
+    $(document.body).t2s();
+    $('#translateLink').addClass('simplified');
+    $('#translateLink').text('繁');
+  } else {
+    $(document.body).s2t();
+    $('#translateLink').removeClass('simplified');
+    $('#translateLink').text('簡');
+  }
+}
+function initializeChineseConversion() {
+  var simplified = +Cookies.get('simplified');
+  // ?lang=zh-Hans, ?lang=zh-Hant
+  var scriptCode = /[?&;]lang=[^&;]*(Han[st])/i.exec(window.location.search);
+  if (scriptCode) {
+    simplified = +(scriptCode[1].match(/Hans/i) != null);
+    Cookies.set('simplified', simplified, {expires: 7, path: '/'});
+  }
+  simplifyTextInPage(simplified);
+  $('#translateLink').click(function() {
+    simplified = +!simplified;
+    Cookies.set('simplified', simplified, {expires: 7, path: '/'});
+    simplifyTextInPage(simplified);
+    $(this).blur();
+  });
+}
+</script><script src="/js/nightshift.js"></script><script id="ribbon" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/js/piao.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@1.2.2/instantpage.min.js" type="module"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
