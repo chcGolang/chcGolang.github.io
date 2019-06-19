@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>RabbitMQ组件设计和架构设计</title>
+      <link href="/posts/7279d5a8/"/>
+      <url>/posts/7279d5a8/</url>
+      
+        <content type="html"><![CDATA[<h1 id="一-设计理念图"><a href="#一-设计理念图" class="headerlink" title="一 设计理念图"></a>一 设计理念图</h1><p><img src="https://youdaoyun-chc.oss-cn-shenzhen.aliyuncs.com/rabbitmq/mq%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF%E5%92%8C%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88.PNG" alt="image"></p><h1 id="二-组件实现功能点"><a href="#二-组件实现功能点" class="headerlink" title="二 组件实现功能点"></a>二 组件实现功能点</h1><ul><li>支持消息高性能的序列化转换,异步化发送消息</li><li>支持消息生产实例与消费实例的连接池化缓存化,提升性能</li><li>支持可靠性投递消息,保障消息的100%不丢失</li><li>支持消费端的幂等操作,避免消费端重复消费的问题</li></ul><hr><ul><li>支持迅速消息发送模式,在一些日志收集/统计分析等需求下可以保证高性能,超高吞吐量</li><li>支持延迟消息模式,消息可以延迟发送,指定延迟时间,用于模型延迟检查,服务限流场景</li><li>支持事务消息,且100%保障可靠性投递,在金融行业单笔大金额操作时会有此类需求</li></ul><hr><ul><li>支持顺序消息,保证消息送达消费端的前后顺序,例如下订单等符合操作</li><li>支持消息补偿,重试,以及快速定位异常/失败消息</li><li>支持集群消息负载均衡,保障消息落到具体SET集群的负载均衡</li><li>支持消息路由策略,指定某些消息路由到指定的SET集群</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 消息队列 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> RabbitMq </tag>
+            
+            <tag> 设计 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>RabbitMQ集群部署与故障处理</title>
       <link href="/posts/78cd3bf7/"/>
       <url>/posts/78cd3bf7/</url>
