@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Jenkins安装部署</title>
+      <link href="/posts/4d1fb26f/"/>
+      <url>/posts/4d1fb26f/</url>
+      
+        <content type="html"><![CDATA[<p>Docker版的Jenkins中使用docker的功能</p><p>Dockerfile</p><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> jenkins/jenkins:lts</span><br><span class="line"></span><br><span class="line"><span class="keyword">USER</span> root</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置时区</span></span><br><span class="line"><span class="comment"># CentOS</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"Asia/shanghai"</span> &gt; /etc/timezone</span></span><br><span class="line"><span class="comment"># Ubuntu</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#清除了基础镜像设置的源，切换成阿里云的jessie源</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">echo</span> <span class="string">''</span> &gt; /etc/apt/sources.list.d/jessie-backports.list \</span></span><br><span class="line"><span class="bash">  &amp;&amp; <span class="built_in">echo</span> <span class="string">"deb http://mirrors.aliyun.com/debian jessie main contrib non-free"</span> &gt; /etc/apt/sources.list \</span></span><br><span class="line"><span class="bash">  &amp;&amp; <span class="built_in">echo</span> <span class="string">"deb http://mirrors.aliyun.com/debian jessie-updates main contrib non-free"</span> &gt;&gt; /etc/apt/sources.list \</span></span><br><span class="line"><span class="bash">  &amp;&amp; <span class="built_in">echo</span> <span class="string">"deb http://mirrors.aliyun.com/debian-security jessie/updates main contrib non-free"</span> &gt;&gt; /etc/apt/sources.list</span></span><br><span class="line"><span class="comment">#更新源并安装缺少的包</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install -y libltdl7</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ARG</span> dockerGid=<span class="number">999</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"docker:x:<span class="variable">$&#123;dockerGid&#125;</span>:jenkins"</span> &gt;&gt; /etc/group \</span></span><br><span class="line"><span class="bash">USER jenkins</span></span><br></pre></td></tr></table></figure><p>执行命令</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker build -t chc/jenkins .</span><br><span class="line">docker volume create jenkins_home</span><br><span class="line">docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v $(<span class="built_in">which</span> docker):/usr/bin/docker -v /etc/docker:/etc/docker chc/jenkins</span><br></pre></td></tr></table></figure><p>-v /var/run/docker.sock:/var/run/docker.sock 与 -v /usr/bin/docker:/usr/bin/docker是把宿主机docker 映射到容器内。</p><p>-v /etc/docker:/etc/docker 宿主机docker的相关配置文件</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> jenkins </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 部署 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>RabbitMQ组件设计和架构设计</title>
       <link href="/posts/7279d5a8/"/>
       <url>/posts/7279d5a8/</url>
