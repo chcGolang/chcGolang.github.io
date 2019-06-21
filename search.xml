@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>jenkins插件安装</title>
+      <link href="/posts/650564be/"/>
+      <url>/posts/650564be/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h1><p>插件名称:Maven Integration</p><p>系统管理-&gt;全局设置 安装maven</p><p>在创建一个maven项目并进行构建,就可以在jenkins_home/tools 中看到maven的配置文件信息</p><h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p>插件名称:CloudBees Docker Build and Publish</p><h1 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h1><p>名称:Publish Over SSH<br><img src="http://qiniu.caihc.site/jenkins/sshmsk.png" alt="image"><br>获取点 【高级】输入针对该服务器的密钥</p><h1 id="Role-Based-Strategy-用户权限管理插件"><a href="#Role-Based-Strategy-用户权限管理插件" class="headerlink" title="Role-Based Strategy 用户权限管理插件"></a>Role-Based Strategy 用户权限管理插件</h1><p><a href="https://blog.csdn.net/u013066244/article/details/53407985" target="_blank" rel="noopener">https://blog.csdn.net/u013066244/article/details/53407985</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> jenkins </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>jenkins-pipeline-编译项目并上传Harbor</title>
       <link href="/posts/1713092c/"/>
       <url>/posts/1713092c/</url>
