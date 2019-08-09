@@ -1,5 +1,5 @@
 $(function () {
-  if ($('#sidebar').hasClass('auto_open')) {
+  if ($('#sidebar').hasClass('auto_open') ) {
     if ($(".sidebar-toc__content").children().length > 0) {
       $(".layout_post").animate({}, function () {
         {
@@ -86,49 +86,12 @@ $(function () {
   }
 
   //---------------------------------------------------------------------------------------------------------
-  //側邊欄comment
-  $("#to_comment").on("click", function () {
-
-    scrollTo('#post-comment')
-
-  });
-
+  
   $(".scroll-down").on("click", function () {
 
     scrollTo('#content-outer')
 
   });
-
-
-  //--------------------------------------------------------------------------------------------------------
-  // tags 隨機大小 顔色
-  var list = document.querySelectorAll(".tag-cloud .tag-cloud-tags a");
-
-  if ($(window).width() > 768) {
-    Array.prototype.forEach.call(list, (item, index) => {
-      item.style.fontSize = Math.floor(Math.random() * 20 + 15) + "px"; //15 ~ 35
-      item.style.color =
-        "rgb(" +
-        Math.floor(Math.random() * 201) +
-        ", " +
-        Math.floor(Math.random() * 201) +
-        ", " +
-        Math.floor(Math.random() * 201) +
-        ")"; // 0,0,0 -> 200,200,200
-    });
-  } else {
-    Array.prototype.forEach.call(list, (item, index) => {
-      item.style.fontSize = Math.floor(Math.random() * 13 + 15) + "px"; //15 ~ 28
-      item.style.color =
-        "rgb(" +
-        Math.floor(Math.random() * 201) +
-        ", " +
-        Math.floor(Math.random() * 201) +
-        ", " +
-        Math.floor(Math.random() * 201) +
-        ")"; // 0,0,0 -> 200,200,200
-    });
-  }
 
 
   //--------------------------------------------------------------------------------------------------------
@@ -177,8 +140,8 @@ $(function () {
       } else { // webkit - safari/chrome
         // alert('按 ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + ' + D 鍵將本頁加入書籤.');
         $.fancyConfirm({
-          title: "添加書籤？",
-          message: '按 ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + ' + D 鍵將本頁加入書籤.',
+          title: GLOBAL_CONFIG.bookmark.title + '?',
+          message: GLOBAL_CONFIG.bookmark.message_prev + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + '+ D ' + GLOBAL_CONFIG.bookmark.message_next + '.',
           okButton: "OK",
         });
 
@@ -188,76 +151,85 @@ $(function () {
   //-------------------------------------------------------------------------------------------------------
   //代码copy
   // Add copy icon
-  // $('figure.highlight').wrap('<div class="code-area-wrap"></div>')
-  // var $copyIcon = $('<i class="fa fa-clipboard" aria-hidden="true"></i>')
-  // var $notice = $('<div class="copy-notice"></div>')
-  // $('.code-area-wrap').prepend($copyIcon)
-  // $('.code-area-wrap').prepend($notice)
-  // // copy function
-  // function copy(text, ctx) {
-  //   if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
-  //     try {
-  //       document.execCommand('copy') // Security exception may be thrown by some browsers.
-  //       $(ctx).prev('.copy-notice')
-  //         .text(GLOBAL_CONFIG.copy.success)
-  //         .velocity({
-  //           translateX: -30,
-  //           opacity: 1
-  //         }, {
-  //           loop: 1,
-  //           duration: 750,
-  //           easing: 'easeOutQuint'
-  //         })
-  //     } catch (ex) {
-  //       $(ctx).prev('.copy-notice')
-  //         .text(GLOBAL_CONFIG.copy.error)
-  //         .velocity({
-  //           translateX: -30,
-  //           opacity: 1
-  //         }, {
-  //           loop: 1,
-  //           duration: 750,
-  //           easing: 'easeOutQuint'
-  //         })
-  //       return false
-  //     }
-  //   } else {
-  //     $(ctx).prev('.copy-notice').text(GLOBAL_CONFIG.copy.noSupport)
-  //   }
-  // }
-  // // click events
-  // $('.code-area-wrap .fa-clipboard').on('click', function () {
-  //   var selection = window.getSelection()
-  //   var range = document.createRange()
-  //   range.selectNodeContents($(this).siblings('figure').find('.code pre')[0])
-  //   selection.removeAllRanges()
-  //   selection.addRange(range)
-  //   var text = selection.toString()
-  //   copy(text, this)
-  //   selection.removeAllRanges()
-  // })
 
+  var highlight_copy = GLOBAL_CONFIG.highlight_copy
+  if (highlight_copy == 'true') {
+    $('figure.highlight').wrap('<div class="code-area-wrap"></div>')
+    var $copyIcon = $('<i class="fa fa-clipboard" aria-hidden="true"></i>')
+    var $notice = $('<div class="copy-notice"></div>')
+    $('.code-area-wrap').prepend($copyIcon)
+    $('.code-area-wrap').prepend($notice)
+    // copy function
+    function copy(text, ctx) {
+      if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
+        try {
+          document.execCommand('copy') // Security exception may be thrown by some browsers.
+          $(ctx).prev('.copy-notice')
+            .text(GLOBAL_CONFIG.copy.success)
+            .animate({
+              opacity: 1,
+              right: 30
+            }, 450, function () {
+              setTimeout(function () {
+                $(ctx).prev('.copy-notice').animate({
+                  opacity: 0,
+                  right: 0
+                }, 650)
+              }, 400)
+            })
+        } catch (ex) {
+          $(ctx).prev('.copy-notice')
+            .text(GLOBAL_CONFIG.copy.error)
+            .animate({
+              opacity: 1,
+              right: 30
+            }, 650, function () {
+              setTimeout(function () {
+                $(ctx).prev('.copy-notice').animate({
+                  opacity: 0,
+                  right: 0
+                }, 650)
+              }, 400)
+            })
+          return false
+        }
+      } else {
+        $(ctx).prev('.copy-notice').text(GLOBAL_CONFIG.copy.noSupport)
+      }
+    }
+    // click events
+    $('.code-area-wrap .fa-clipboard').on('click', function () {
+      var selection = window.getSelection()
+      var range = document.createRange()
+      range.selectNodeContents($(this).siblings('figure').find('.code pre')[0])
+      selection.removeAllRanges()
+      selection.addRange(range)
+      var text = selection.toString()
+      copy(text, this)
+      selection.removeAllRanges()
+    })
+  }
   //---------------------------------------------------------------------------------------------------
   //fancybox
-  var imgList = $(".recent-post-info  img");
+  var imgList = $(".recent-post-info  img").not('.no-fancybox');
   if (imgList.length === 0) {
-    imgList = $("#post-content img");
+    imgList = $("#post-content img").not('.no-fancybox');
   }
+  
   for (var i = 0; i < imgList.length; i++) {
     var $a = $(
       '<a href="' +
-      imgList[i].src +
-      '" data-fancybox="group" data-caption="' +
-      imgList[i].alt +
-      '" class="fancybox"></a>'
-    );
-    var alt = imgList[i].alt;
-    var $wrap = $(imgList[i]).wrap($a);
+        imgList[i].src +
+        '" data-fancybox="group" data-caption="' +
+        imgList[i].alt +
+        '" class="fancybox"></a>'
+    )
+    var alt = imgList[i].alt
+    var $wrap = $(imgList[i]).wrap($a)
     if (alt) {
-      $wrap.after('<div class="img-alt">' + alt + "</div>");
+      $wrap.after('<div class="img-alt">' + alt + '</div>')
     }
   }
-
   $().fancybox({
     selector: "[data-fancybox]",
     loop: true,
@@ -306,30 +278,76 @@ $(function () {
   //---------------------------------------------------------------------------------------------------------
   /** head点击*/
   $('.toggle-menu').on('click', function () {
-    if (!$('.menus').is(':visible')) {
+
+    if ($(".toggle-menu").hasClass("open")) {
       $(".toggle-menu").removeClass("open").addClass("close");
-      $('.menus').slideDown(300)
+      $("#page-header #site-name,#page-header .search").css({'color':'#3b3a3a','text-shadow': 'none'})
+      $(".toggle-menu *").css({ 'background-color': '#3b3a3a', 'text-shadow': 'none' });
+      $('body').addClass("is_hidden");
+      $('.menus').addClass("menu_open");
+      fixbg_menu();
     } else {
       $(".toggle-menu").removeClass("close").addClass("open");
-      $('.menus').slideUp(200)
+      $("#page-header #site-name,#page-header .search").css({ 'color': '', 'text-shadow': '' });
+      $(".toggle-menu *").css({ 'background-color': '', 'text-shadow': '' });
+      $('body').removeClass("is_hidden");
+      $('.menus').removeClass("menu_open").addClass('menu_close');
+      setTimeout(function () {
+        $('.menus').removeClass("menu_close")
+        
+      }, 300)
     }
   })
 
-  $(document).on('click touchstart', function (e) {
-    var flag = $('.menus')[0].contains(e.target) || $('.toggle-menu')[0].contains(e.target)
-    if (!flag && $('.toggle-menu').is(':visible')) {
-      $(".toggle-menu").removeClass("close").addClass("open");
-      $('.menus').slideUp(200)
+  function fixbg_menu() {
+    const fixScroll = (scrollEl) => {
+      let startY
+      scrollEl.addEventListener('touchstart', function (event) {
+        // 如果多於1根手指點擊屏幕,則不處理
+        if (event.targetTouches.length > 1) {
+          return
+        }
+        // 儲存手指的初始位置
+        startY = event.targetTouches[0].clientY
+      }, false)
+      scrollEl.addEventListener('touchmove', function (event) {
+        if (event.targetTouches.length > 1) {
+          return
+        }
+        // 判斷手指滑動方向, y大於0時向下滑動, 小於0時向上滑動
+        const y = event.targetTouches[0].clientY - startY
+        // 如果到頂時繼續向下拉
+        if (scrollEl.scrollTop <= 0 && y > 0) {
+          // 重置滾動距離為最小值
+          scrollEl.scrollTop = 0
+          // 阻止滾動
+          event.preventDefault()
+        }
+        // 如果到底時繼續上滑  
+        const maxScrollTop = scrollEl.scrollHeight - scrollEl.clientHeight
+        if (maxScrollTop - scrollEl.scrollTop <= 0 && y < 0) {
+          scrollEl.scrollTop = maxScrollTop
+          event.preventDefault()
+        }
+      }, {
+          passive: false
+        })
     }
-  })
+    const scrollEl = document.querySelector(".menus");
+    fixScroll(scrollEl)
+  }
 
+  
 
   $(window).on('resize', function (e) {
     if (!$('.toggle-menu').is(':visible')) {
-      if (!$('.menus').is(':visible')) {
-        $(".toggle-menu").removeClass("open").addClass("close");
-        $('.menus').slideDown(300)
-      }
+      if ($(".toggle-menu").hasClass("close")) {
+      $(".toggle-menu").removeClass("close").addClass("open");
+      $("#page-header #site-name,#page-header .search").css({ 'color': '', 'text-shadow': '' });
+      $(".toggle-menu *").css({ 'background-color': '', 'text-shadow': '' });
+      $('body').removeClass("is_hidden");
+      $('.menus').removeClass("menu_open");
+    }     
     }
   })
 
@@ -348,52 +366,55 @@ $(function () {
       findHeadPosition(currentTop)
     }
     var isUp = scrollDirection(currentTop)
-    if (currentTop > 56) {
-      if (isUp) {
-        $('#page-header').hasClass('visible') ? $('#page-header').removeClass('visible') : console.log()
+
+    if($(".toggle-menu").hasClass("open")){
+      if (currentTop > 56) {
+        
+        if (isUp) {
+          $('#page-header').hasClass('visible') ? $('#page-header').removeClass('visible') : console.log()
+        } else {
+          $('#page-header').hasClass('visible') ? console.log() : $('#page-header').addClass('visible')
+        }
+        $('#page-header').addClass('fixed')
+        if ($('#go-up').css('opacity') === '0') {
+
+          $('#go-up').animate({}, function () {
+            $('#go-up').css({
+              'opacity': '1',
+              'transform': 'translateX(-30px) rotateZ(360deg)'
+            })
+          })
+        }
+        if ($('#rightside').css('opacity') === '0') {
+
+          $('#rightside').animate({}, function () {
+            $('#rightside').css({
+              'opacity': '1',
+              'transform': 'translateX(-38px)'
+            })
+          })
+        }
+
+
       } else {
-        $('#page-header').hasClass('visible') ? console.log() : $('#page-header').addClass('visible')
-      }
-      $('#page-header').addClass('fixed')
-      if ($('#go-up').css('opacity') === '0') {
+        if (currentTop === 0) {
+          $('#page-header').removeClass('fixed').removeClass('visible')
+        }
 
         $('#go-up').animate({}, function () {
           $('#go-up').css({
-            'opacity': '1',
-            'transform': 'translateX(-30px) rotateZ(360deg)'
+            'opacity': '0',
+            'transform': 'translateX(0) rotateZ(180deg) '
           })
         })
-      }
-      if ($('#rightside').css('opacity') === '0') {
 
         $('#rightside').animate({}, function () {
           $('#rightside').css({
-            'opacity': '1',
-            'transform': 'translateX(-38px)'
+            'opacity': '0',
+            'transform': 'translateX(0)'
           })
         })
       }
-
-
-    } else {
-      if (currentTop === 0) {
-        $('#page-header').removeClass('fixed').removeClass('visible')
-      }
-
-      $('#go-up').animate({}, function () {
-        $('#go-up').css({
-          'opacity': '0',
-          'transform': 'translateX(0) rotateZ(180deg) '
-        })
-      })
-
-      $('#rightside').animate({}, function () {
-        $('#rightside').css({
-          'opacity': '0',
-          'transform': 'translateX(0)'
-        })
-      })
-
     }
   }, 50, 100))
 
@@ -498,6 +519,18 @@ $(function () {
         // Hide their respective list of subsections
         .find('.toc-child').hide()
     }
+
+    if ($('.toc-link').hasClass('active')){
+      var active_position = $(".active").offset().top;
+      var sidebar_scrolltop = $("#sidebar").scrollTop();
+      if (active_position > (top + $(window).height() - 50)) {             
+        $("#sidebar").scrollTop(sidebar_scrolltop + 100);
+      } else if (active_position < top + 50)
+      {
+        $("#sidebar").scrollTop(sidebar_scrolltop - 100);
+        }
+    }
+
   }
 
   //代碼框雙擊全屏
@@ -517,25 +550,22 @@ $(function () {
       $('body').toggleClass('read-mode');
       $('#font_plus,#font_minus').toggleClass('is_visible');
 
-    }
-     else {
+    } else {
       $('body').toggleClass('read-mode');
       $('#font_plus,#font_minus').toggleClass('is_visible');
     }
 
   });
 
-  
- //閲讀模式下字體調整
+
+  //閲讀模式下字體調整
   $("#font_plus").click(function () {
-    var font_size_record = parseFloat($('body').css('font-size'))     
-    $('body').css('font-size',font_size_record + 1)    
-    }
-  );
+    var font_size_record = parseFloat($('body').css('font-size'))
+    $('body').css('font-size', font_size_record + 1)
+  });
 
   $("#font_minus").click(function () {
-    var font_size_record = parseFloat($('body').css('font-size'))     
-    $('body').css('font-size',font_size_record - 1)    
-    }
-  );
+    var font_size_record = parseFloat($('body').css('font-size'))
+    $('body').css('font-size', font_size_record - 1)
+  });
 });
