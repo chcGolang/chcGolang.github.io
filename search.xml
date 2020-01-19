@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>黑群晖 Active Backup for Business 套件激活方法</title>
+      <link href="/posts/a3645eb7/"/>
+      <url>/posts/a3645eb7/</url>
+      
+        <content type="html"><![CDATA[<h1 id="黑群晖-Active-Backup-for-Business-套件激活方法"><a href="#黑群晖-Active-Backup-for-Business-套件激活方法" class="headerlink" title="黑群晖 Active Backup for Business 套件激活方法"></a>黑群晖 Active Backup for Business 套件激活方法</h1><p><strong>群晖版本6.1</strong></p><h2 id="1-安装Active-Backup-for-Business套件"><a href="#1-安装Active-Backup-for-Business套件" class="headerlink" title="1. 安装Active Backup for Business套件"></a>1. 安装<code>Active Backup for Business</code>套件</h2><p>到套件中心安装<code>Active Backup for Business</code></p><p><img src="http://qiniu.caihc.site/1.jpg" alt></p><h2 id="2-查询群晖序列号"><a href="#2-查询群晖序列号" class="headerlink" title="2. 查询群晖序列号"></a>2. 查询群晖序列号</h2><ul><li><p>到【控制面板】 - 【信息中心】 找到【产品序列号】并记下来</p><p><img src="http://qiniu.caihc.site/1578997611(1).png" alt></p></li></ul><h2 id="3-激活"><a href="#3-激活" class="headerlink" title="3. 激活"></a>3. 激活</h2><ul><li><p>测试群晖登陆链接</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://IP地址:5001/webapi/auth.cgi?api=SYNO.API.Auth&amp;method=Login&amp;version=1&amp;account=登陆用户名&amp;passwd=登陆密码</span><br></pre></td></tr></table></figure><p>返回的结果:</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"success"</span>:<span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure></li></ul><ul><li><p>激活</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://IP地址:5001/webapi/entry.cgi?api=SYNO.ActiveBackup.Activation&amp;method=<span class="built_in">set</span>&amp;version=1&amp;activated=<span class="literal">true</span>&amp;serial_number=<span class="string">"序列号"</span></span><br></pre></td></tr></table></figure><p>返回结果是:<code>{&quot;data&quot;:{&quot;activated&quot;:true},&quot;success&quot;:true}</code>,则为激活成功,然后打开套件就不需要再次激活</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> synology </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>kubernetes-ELK日志功能</title>
       <link href="/posts/c6b6d8bf/"/>
       <url>/posts/c6b6d8bf/</url>
