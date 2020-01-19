@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title></title>
+      <link href="/posts/0/"/>
+      <url>/posts/0/</url>
+      
+        <content type="html"><![CDATA[<p>Active Backup for 备份linux文件</p><p>title: Active Backup for Business 备份linux文件<br>categories:</p><ul><li>synology<br>top_img: ‘<a href="http://qiniu.caihc.site/20200119113522.png&#39;" target="_blank" rel="noopener">http://qiniu.caihc.site/20200119113522.png&#39;</a><br>cover: ‘<a href="http://qiniu.caihc.site/20200119113522.png&#39;" target="_blank" rel="noopener">http://qiniu.caihc.site/20200119113522.png&#39;</a><br>date: 2020-01-19 11:17:34<br>tags:<br>keywords:<br>description:</li></ul><h1 id="Active-Backup-for-Business-备份linux文件"><a href="#Active-Backup-for-Business-备份linux文件" class="headerlink" title="Active Backup for Business 备份linux文件"></a>Active Backup for Business 备份linux文件</h1><h2 id="1-添加需要备份的linux服务器"><a href="#1-添加需要备份的linux服务器" class="headerlink" title="1.添加需要备份的linux服务器"></a>1.添加需要备份的linux服务器</h2><p><img src="http://qiniu.caihc.site/20200114231545.png" alt></p><p><img src="http://qiniu.caihc.site/20200114231619.png" alt></p><p>SMB为备份windows系列的,rsync则是用于备份linux系列的</p><p><img src="http://qiniu.caihc.site/20200114231844.png" alt></p><p>可以选择相关的链接服务器的方式,我这里使用的是ssh密钥+rsync的方式进行链接备份,但是无论选择哪种都需要目标服务器先安装rsync</p><p><img src="http://qiniu.caihc.site/20200114231946.png" alt></p><p>选择备份的模式,我这里选择增量备份</p><p><img src="http://qiniu.caihc.site/20200114232037.png" alt></p><p>选择要备份的文件夹,可以选择多个,我这里就备份opt的文件夹</p><p><img src="http://qiniu.caihc.site/20200114233240.png" alt></p><p>填写本次备份任务的名字,要备份到本地路径的位置,还有备份计划</p><p><img src="http://qiniu.caihc.site/20200114233309.png" alt></p><p>检查是否填写正确</p><p><img src="http://qiniu.caihc.site/20200114233341.png" alt></p><p>备份计划创建成功</p><p>如果绝对需要备份一份到云存储,可以在本次备份计划后面在添加一个<code>Cloud Sync</code>的备份计划</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>黑群晖 Active Backup for Business 套件激活方法</title>
       <link href="/posts/a3645eb7/"/>
       <url>/posts/a3645eb7/</url>
