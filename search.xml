@@ -67,6 +67,25 @@
     
     
     <entry>
+      <title>群晖Nas备份linux服务器到usb和公有云</title>
+      <link href="/posts/a42fdd7/"/>
+      <url>/posts/a42fdd7/</url>
+      
+        <content type="html"><![CDATA[<h1 id="群晖Nas备份linux服务器到usb和公有云"><a href="#群晖Nas备份linux服务器到usb和公有云" class="headerlink" title="群晖Nas备份linux服务器到usb和公有云"></a>群晖Nas备份linux服务器到usb和公有云</h1><h2 id="1-安装套件"><a href="#1-安装套件" class="headerlink" title="1.安装套件"></a>1.安装套件</h2><p><code>Active Backup for Business</code>:linux文件备份工具</p><p><code>Hyper Backup</code>:文件备份工具</p><p><code>Cloud Sync</code>:公有云备份工具</p><p><code>Hyper Backup Explorer</code>:用于(windows/linux/mac)浏览Hyper Backup的备份信息</p><p>下载地址:<a href="https://www.synology.cn/zh-cn/support/download/DS1515+#utilities" target="_blank" rel="noopener"><code>Hyper Backup Explorer</code></a></p><p>注意点:如果<code>Hyper Backup</code>的公有云支持项中支持你的公有云则无需在使用<code>Cloud Sync</code></p><h2 id="2-Active-Backup-for-Business备份linux文件"><a href="#2-Active-Backup-for-Business备份linux文件" class="headerlink" title="2. Active Backup for Business备份linux文件"></a>2. <code>Active Backup for Business</code>备份linux文件</h2><p>总体教程地址:<code>https://blog.caihc.site/posts/da551c6a/</code></p><p><strong>需要改变的地方是:备份模式为镜像</strong></p><p><img src="http://qiniu.caihc.site/20200119114856.png" alt></p><h2 id="3-Hyper-Backup套件备份"><a href="#3-Hyper-Backup套件备份" class="headerlink" title="3. Hyper Backup套件备份"></a>3. Hyper Backup套件备份</h2><ol><li><p>选择数据备份任务</p><p><img src="http://qiniu.caihc.site/20200119115125.png" alt></p></li><li><p>选择图中指点的地方<br>  <img src="http://qiniu.caihc.site/20200119115248.png" alt></p></li><li><p>需要备份的目的文件夹和名字<br> <img src="http://qiniu.caihc.site/20200119115346.png" alt></p></li><li><p>选择需要备份的源文件夹</p><p> <img src="http://qiniu.caihc.site/20200119115740.png" alt></p></li><li><p>备份计划</p><p><img src="http://qiniu.caihc.site/20200119115809.png" alt></p></li></ol><p>到这里相关设置基本完毕</p><h2 id="3-Cloud-Sync备份"><a href="#3-Cloud-Sync备份" class="headerlink" title="3. Cloud Sync备份"></a>3. Cloud Sync备份</h2><p><strong>如果<code>Hyper Backup</code>没有支持你的公有云,例如百度网盘</strong></p><ol><li><p>选择你要备份的云供应商(这里我选百度云)</p><p><img src="http://qiniu.caihc.site/20200119120443.png" alt></p></li><li><p>选择后就是相关的账户授权操作,这里我就不演示了</p></li><li><p>需要备份的本地路径和远程存储路径(这里因为我是已本地为主,所以就不使用双向)</p><p><img src="http://qiniu.caihc.site/20200119120652.png" alt></p></li><li><p>备份计划为每天的凌晨3点</p><p><img src="http://qiniu.caihc.site/20200119120834.png" alt></p></li></ol><p>相关配置就到这里完毕</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> synology </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>kubernetes-ELK日志功能</title>
       <link href="/posts/c6b6d8bf/"/>
       <url>/posts/c6b6d8bf/</url>
